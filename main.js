@@ -4,7 +4,40 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+// adding a hidden class to the #modal in HTML 
+const modal = document.getElementById("modal");
+modal.setAttribute("class", "hidden");
 
+// set heartStat to equal like-glyph class in the document HTML
+const heartStat = document.querySelectorAll(".like-glyph");
+
+//loop threw the heartStat when button is pressed and assign the
+//empty heart a full heart and switch the class value of <span> to "activated heart"
+//or if the heart is already activated switvh to an empty heart and assign it to empty "like-glyph"
+heartStat.forEach(function(btn){
+  btn.addEventListener("click", function(res){
+    mimicServerCall()
+    .then(function(response){
+      if(btn.textContent === FULL_HEART){
+        btn.textContent = EMPTY_HEART;
+        btn.setAttribute("class", "like-glyph")
+      }
+      else{
+        btn.textContent = FULL_HEART;
+        btn.setAttribute("class", "activated-heart");
+      }
+    }
+    )
+    .catch(function(e){
+      modal.removeAttribute("class");
+      setTimeout(() => modal.setAttribute("class", "hidden")
+      ,3000);
+    }
+    )
+  }
+  )
+}
+)
 
 
 //------------------------------------------------------------------------------
